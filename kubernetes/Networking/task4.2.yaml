@@ -1,0 +1,67 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+   name: ns-one
+---
+
+apiVersion: v1
+kind: Namespace
+metadata:
+   name: ns-two
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-svc-ns
+  namespace: ns-one
+  labels:
+    app: nginx-svc-ns
+spec:
+  type: ClusterIP
+  ports:
+  - port: 80
+    targetPort: 80
+  selector:
+    app: nginx-svc-ns
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: nginx-deploy-ns
+  name: nginx-deploy
+  namespace: ns-one
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx-svc-ns
+ 
+  template:
+    metadata:
+      labels:
+        app: nginx-svc-ns
+    spec:
+      containers:
+      - image: nginx
+        name: nginx
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  namespace: ns-two
+  name: networkutils
+  labels:
+    app: network
+spec: 
+    containers:
+    - name: networkutils
+      image: ghcr.io/jonlabelle/network-tools
+      command: ["sleep"]
+      args: ["10000"]
+      imagePullPolicy: IfNotPresent
+

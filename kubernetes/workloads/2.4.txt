@@ -1,0 +1,9 @@
+Run an nginx pod, upgrade the image tag to (latest-not-available) that would break the pod.
+
+ANS:
+
+kubectl create deploy my-deploy --image nginx
+
+kubectl set image deploy my-deploy nginx=nginx:latest-not-available
+
+revert the deployment using : kubectl rollout undo deploy my-deploy 

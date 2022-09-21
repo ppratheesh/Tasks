@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: testpoddemo
+spec:
+  containers:
+  - image: nginx
+    name: webserverdemo
+    volumeMounts:
+    - mountPath: /usr/share/nginx/html
+      name: myvol
+  volumes:
+  - name: myvol
+    hostPath:      
+      path: /home/prateesh/data

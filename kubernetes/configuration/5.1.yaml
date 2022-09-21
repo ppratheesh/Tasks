@@ -1,0 +1,23 @@
+---
+apiVersion: v1
+data:
+  name: infra
+kind: ConfigMap
+metadata:
+  name: cm-one
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: configmap-pod
+spec:
+  containers:
+    - name: demo
+      image: alpine
+      command: ["sleep", "3600"]
+      env:
+        - name: env
+          valueFrom:
+            configMapKeyRef:
+              name: cm-one
+              key: name

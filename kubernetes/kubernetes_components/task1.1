@@ -1,0 +1,20 @@
+ 1.Try to figure out all the flags the core components (API Server, Controller Manager, Scheduler) are running with.
+
+   ANS.
+   
+   checked the static pod manifest file inside the container of kind cluser and found the flags from each manifest file
+   
+   check kubelet service running inside the container for getting manifest file location
+     
+   static pod manifest file path: /etc/kubernets/manifests
+
+2. What are all the controllers that are are enabled by default in Controller manager component?
+
+   ANS:
+   
+   All controllers are enabled by default. Check kube-controller-manager.yaml manifest in /etc/kubernets/manifest for finding this 
+
+   - --controllers=*,bootstrapsigner,tokencleaner
+
+
+   

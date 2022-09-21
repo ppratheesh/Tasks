@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: networkutils
+  labels:
+    app: network
+spec: 
+    containers:
+    - name: networkutils
+      image: ghcr.io/jonlabelle/network-tools
+      command: ["sleep"]
+      args: ["10000"]
+      imagePullPolicy: IfNotPresent
+

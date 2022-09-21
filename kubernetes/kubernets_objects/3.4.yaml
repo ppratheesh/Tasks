@@ -1,0 +1,6 @@
+Create two replicas of a pod using deployment, then manually change the labels of the pods to observe new pod being spinned up. Please make sure you understand what's happening.
+
+
+ANS:
+
+  After creating a deployment with 2 replicas edited the pods label. Saw new pods came up with same old label as deployment. edited pods also remains running but no longer a part of deployment 

@@ -1,0 +1,6 @@
+kubectl create secret generic test1-secret --from-env-file=creds.txt
+
+kubectl create secret generic test2-secret --from-literal='username=admin' --from-literal='password=pass123'
+
+
+both way the secrets are encoded

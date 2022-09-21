@@ -1,0 +1,17 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: nginxds
+spec:
+  template:
+      metadata:
+        labels:
+           app: webserver
+      spec:
+        containers:
+         - name: web
+           image: nginx
+  
+  selector:
+     matchLabels:
+        app: webserver

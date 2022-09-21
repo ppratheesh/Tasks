@@ -1,0 +1,37 @@
+Change the kube-scheduler pod to point to image tag (:not-available) from kube-system namespace and then create any pod, try to understand why that pod is not in running state
+
+
+ANS:
+
+Modify the manifest in /etc/kubernets/manifests
+
+prateesh@PF3HLE8F:~/tasks/kubernets_objects$ kubectl get pods -n kube-system
+NAME                                         READY   STATUS             RESTARTS      AGE
+coredns-565d847f94-6cw9k                     1/1     Running            2 (14h ago)   27h
+coredns-565d847f94-bjfch                     1/1     Running            2 (14h ago)   27h
+etcd-kind-control-plane                      1/1     Running            2 (14h ago)   27h
+kindnet-mk4cz                                1/1     Running            2 (14h ago)   27h
+kube-apiserver-kind-control-plane            1/1     Running            2 (14h ago)   27h
+kube-controller-manager-kind-control-plane   1/1     Running            2 (14h ago)   27h
+kube-proxy-trb8q                             1/1     Running            2 (14h ago)   27h
+kube-scheduler-kind-control-plane            0/1     ErrImagePull   0             8s
+
+
+
+
+New pods will not be scheduled to nodes since kube-scheduler is not running 
+
+prateesh@PF3HLE8F:~/tasks/kubernets_objects$ kubectl run newpod --image nginx
+pod/newpod created
+prateesh@PF3HLE8F:~/tasks/kubernets_objects$ kubectl get pods
+NAME                         READY   STATUS    RESTARTS   AGE
+db-0                         1/1     Running   0          12m
+my-deploy-64d657d578-svt5c   1/1     Running   0          22m
+networkutils                 1/1     Running   0          143m
+newpod                       0/1     Pending   0          8s
+nginxds-dqqgv                1/1     Running   0          41m
+webserver                    1/1     Running   0          43m
+
+
+
+ 

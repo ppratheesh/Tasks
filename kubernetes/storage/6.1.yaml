@@ -1,0 +1,24 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: storagedemo
+spec:
+ containers:
+  - name: nginx1
+    image: nginx
+    volumeMounts:
+    - name: vol
+      mountPath: /mydata
+    command: ["/bin/sh", "-c", "echo `date` > /mydata/date"]
+
+  - name: nginx2
+    image: nginx
+    volumeMounts:
+    - name: vol
+      mountPath: /mydata
+    command: ["/bin/sh", "-c", "cat /mydata/date"]
+
+
+ volumes:
+   - name: vol
+     emptyDir: {}

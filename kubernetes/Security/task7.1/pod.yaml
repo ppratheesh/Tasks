@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+    name: kubectlpod
+    labels:
+      app: checker
+spec:
+  containers:
+      - name: kubectlcontainer
+        image: kanisterio/kanister-kubectl:1.18
+        imagePullPolicy: IfNotPresent
+  serviceAccountName: kubectl-pod-sa

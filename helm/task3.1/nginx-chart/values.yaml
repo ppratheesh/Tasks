@@ -1,0 +1,11 @@
+nameSpace: ""
+replicaCount: 1
+image:
+  repository: nginx
+  pullPolicy: IfNotPresent
+  tag: 
+
+service:
+  type: NodePort
+  nodePort: 31306
+  port: 80

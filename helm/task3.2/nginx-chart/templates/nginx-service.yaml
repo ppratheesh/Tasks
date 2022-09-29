@@ -1,0 +1,19 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "resource-name" . }}-svc
+spec:
+  {{- with .Values.service }}
+  type: {{ .type }}
+  ports:
+    - port: {{ .port }}
+      targetPort: http
+      protocol: TCP
+      name: http
+      {{- if eq .type "NodePort"}}
+      nodePort: {{ .nodePort }}
+      {{- end }}
+  {{- end }}
+  selector:
+    {{- include "app-labels" .| nindent 4 }}

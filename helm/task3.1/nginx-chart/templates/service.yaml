@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Release.Name }}-{{ .Values.service.type | lower }}-svc
+  labels:
+    {{- include "nginx-chart.selectorLabels" . | nindent 6 }}
+  namespace: {{ default "default" .Values.nameSpace }}
+spec:
+   type: {{ .Values.service.type }}
+   ports:
+    - port: {{ .Values.service.port }}
+      {{- if eq .Values.service.type "NodePort" }}
+      nodePort: {{ .Values.service.nodePort }}
+      {{- end }}
+   selector:
+    {{- include "nginx-chart.selectorLabels" . | nindent 6 }}
+

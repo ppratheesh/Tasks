@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: {{ default "default" .Values.nameSpace }}
+  name: {{ .Release.Name }}
+  labels:
+    {{- include "nginx-chart.selectorLabels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "nginx-chart.selectorLabels" . | nindent 6 }}       
+  template:
+    metadata:
+      labels:
+        {{- include "nginx-chart.selectorLabels" . | nindent 8 }}
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}
+          {{- if .Values.image.tag }}
+          image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+          {{- else }}
+          image: {{ .Values.image.repository }}
+          {{- end }}
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          volumeMounts:
+            - name: {{ .Chart.Name }}-vol
+              mountPath: /usr/share/nginx/html
+      volumes:
+        - name: {{ .Chart.Name }}-vol
+          configMap:
+            name: {{ .Release.Name }}-nginx-configmap
+
+ 

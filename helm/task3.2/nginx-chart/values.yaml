@@ -1,0 +1,13 @@
+replicaCount: 1
+serviceAccount:
+  create: false
+image:
+  repository: "nginx"
+  pullPolicy: IfNotPresent
+  tag: "1.16.0"
+
+service:
+  type: NodePort
+  port: 80
+  nodePort: 31206
+

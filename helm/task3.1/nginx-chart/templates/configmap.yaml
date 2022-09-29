@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}-nginx-configmap
+  namespace: {{ default "default" .Values.nameSpace }}
+data:
+  index.html: |
+    <!DOCTYPE html>
+    <html>
+    <head>
+    <title>Helm Module</title>
+    <style>
+    html { color-scheme:light dark; }
+    body { width: 35em; margin: 0 auto; font-family: Tahoma, Verdana, Arial, sans-serif; }
+    </style>
+    </head>
+    <body>
+    <h1>Helm Module</h1>
+    </body>
+    </html>

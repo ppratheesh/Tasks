@@ -1,0 +1,6 @@
+apiversion: v2
+version: 0.1.0
+name: nginx-chart
+description: helm chart for nginx
+type: application
+appVersion: "1.16.0"

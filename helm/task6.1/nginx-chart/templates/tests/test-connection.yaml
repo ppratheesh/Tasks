@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Pod
+metadata:
+   annotations: 
+      "helm.sh/hook": test
+      "helm.sh/hook-delete-policy": hook-succeeded 
+   name: {{ include "resource-name" . }}-test-connection
+   labels:
+      {{- include "app-labels" . | nindent 6 }}
+spec:
+  containers:
+    - name: wget
+      image: busybox
+      command: ['wget']
+      args: ['{{ include "resource-name" . }}-svc:{{ .Values.service.port }}']
+  restartPolicy: Never
+

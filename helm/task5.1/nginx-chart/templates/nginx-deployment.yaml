@@ -1,0 +1,52 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "resource-name" . }}
+  labels:
+    {{- include "app-labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "app-labels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+          {{- include "app-labels" . | nindent 8 }}         
+    spec:
+      {{- if .Values.serviceAccount.create }}
+      serviceAccountName: {{ include "resource-name" . }}-sa
+      {{- end }}
+      volumes:
+      - name: {{ include "resource-name" . }}-volume
+        configMap:
+          name: {{ include "resource-name" . }}-cm
+          items:
+          - key: index.html
+            path: index.html
+      containers: 
+        - name: {{ include "resource-name" . }}
+          {{- with .Values.image }}
+          {{- if .tag }} 
+          image: {{ .repository }}:{{ .tag }}
+          {{- else }}
+          image: {{ .repository }}
+          {{- end }}
+          imagePullPolicy: {{ .pullPolicy }}
+          {{- end }}
+          ports:
+            - name: http
+              containerPort: 80
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+          volumeMounts:
+          - name: {{ include "resource-name" . }}-volume
+            mountPath: /usr/share/nginx/html

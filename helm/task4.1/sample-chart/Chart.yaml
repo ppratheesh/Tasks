@@ -1,0 +1,14 @@
+apiVersion: v2
+name: sample-chart 
+version: 0.1.0
+type: application 
+appVersion: 9.3.4 
+description: sample chart for testing subcharts
+dependencies:
+      - name: mysql
+        repository: https://charts.bitnami.com/bitnami
+        version: 9.3.4
+        condition: mysql.enabled
+ 
+
+

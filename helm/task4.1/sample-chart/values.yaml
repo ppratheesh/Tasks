@@ -1,0 +1,5 @@
+mysql:
+  enabled: true
+  auth:
+    rootPassword: thisismypass12
+

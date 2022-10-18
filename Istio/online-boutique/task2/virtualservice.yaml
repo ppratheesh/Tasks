@@ -17,8 +17,3 @@ spec:
             host: frontend
             subset: v2
           weight: 50
-
-        
-          
-
-          

@@ -21,6 +21,8 @@ kind: Gateway
 metadata:
   name: frontend-gateway
 spec:
+  selector:
+    istio: ingressgateway
   servers:
     - hosts:
         - "onlineboutique.example.com"
@@ -407,6 +409,8 @@ kind: Gateway
 metadata:
   name: frontend-gateway
 spec:
+  selector:
+    istio: ingressgateway
   servers:
     - hosts:
         - "onlineboutique.example.com"

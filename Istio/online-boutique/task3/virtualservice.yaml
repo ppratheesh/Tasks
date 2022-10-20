@@ -11,7 +11,7 @@ spec:
     - match:
        - headers:
             user-agent:
-               regex: '.*Firefox.*$' 
+               regex: '.*Firefox.*'
       route:
         - destination:
             host: frontend
@@ -35,4 +35,3 @@ spec:
             host: frontend
             subset: v2
           weight: 50
-          

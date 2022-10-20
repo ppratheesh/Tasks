@@ -191,7 +191,7 @@ spec:
     - match:
        - headers:
             user-agent:
-               regex: '.*Firefox.*$' 
+               regex: '.*Firefox.*'
       route:
         - destination:
             host: frontend
@@ -289,7 +289,7 @@ spec:
     - match:
        - headers:
             user-agent:
-               regex: '.*Firefox.*$' 
+               regex: '.*Firefox.*'
       route:
         - destination:
             host: frontend

@@ -1,0 +1,25 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: guestbook
+  namespace: argocd
+spec:
+  generators:
+  - clusters: {}
+  template:
+    metadata:
+      name: '{{name}}-guestbook'
+    spec:
+      project: default
+      source:
+        repoURL: git@github.com:ppratheesh/ArgoCD-demo.git
+        targetRevision: HEAD
+        path: nginx
+        directory:
+          recurse: true
+      destination:
+        server: '{{server}}'
+        namespace: demo
+      syncPolicy:
+        syncOptions:
+          - CreateNamespace=true

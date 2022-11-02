@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: privaterepodemo
+  namespace: argocd
+spec:
+  project: default
+
+  source:
+    repoURL: git@github.com:ppratheesh/ArgoCD-demo.git
+    targetRevision: HEAD
+    path: nginx
+    directory:
+      recurse: true
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: private
+  syncPolicy:
+    automated: 
+      prune: true 
+      selfHeal: true
+    syncOptions:    
+      - CreateNamespace=true 

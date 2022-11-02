@@ -1,0 +1,30 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: gitgenerator-guestbook
+  namespace: argocd
+spec:
+  generators:
+  - clusters: {}
+  - git:
+      repoURL: https://github.com/ppratheesh/Tasks.git
+      revision: HEAD
+      directories:
+      - path: apps/*
+  template:
+    metadata:
+      name: '{{path.basename}}'
+    spec:
+      project: default
+      source:
+        repoURL: https://github.com/ppratheesh/Tasks.git
+        targetRevision: HEAD
+        path: '{path}}'
+        directory:
+          recurse: true
+      destination:
+        server: '{{server}}'
+        namespace: gitgendemo
+      syncPolicy:
+        syncOptions:
+          - CreateNamespace=true 

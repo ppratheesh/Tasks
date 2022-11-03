@@ -2,21 +2,22 @@ apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
   name: gitgen-guestbook
+  namespace: argocd
 spec:
   generators:
     - git:
         repoURL: https://github.com/ppratheesh/Tasks.git
         revision: HEAD
-        file:
+        files:
           - path: ArgoCD/Argo-yamls/ApplicationSet/git-generator-files-discovery/config/**/config.json
   template:
     metadata:
-      name: {{cluster.name}}-guestbook
+      name: '{{cluster.name}}-guestbook'
     spec:
       project: default
       source:
         repoURL: https://github.com/ppratheesh/Tasks.git
-        targetrevision: HEAD
+        targetRevision: HEAD
         path: ArgoCD/apps/nginx
       destination: 
         server: '{{cluster.address}}'

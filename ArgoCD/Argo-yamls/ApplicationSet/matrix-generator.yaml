@@ -7,15 +7,15 @@ spec:
   generators:
     - matrix:
         generators:
-          - clusters: {}
           - git:
               repoURL: https://github.com/ppratheesh/Tasks.git
               revision: HEAD
               directories:
                 - path: ArgoCD/apps/*
+          - clusters: {}
   template:
     metadata:
-      name: '{{name}}-guestbook'
+      name: '{{path.basename}}-{{name}}'
     spec:
       project: default
       source:

@@ -8,10 +8,10 @@ spec:
         repoURL: https://github.com/ppratheesh/Tasks.git
         revision: HEAD
         file:
-          - path: 
+          - path: ArgoCD/Argo-yamls/ApplicationSet/git-generator-files-discovery/config/**/config.json
   template:
     metadata:
-      name: {{clusters.stage.name}}-guestbook
+      name: {{cluster.name}}-guestbook
     spec:
       project: default
       source:
@@ -19,8 +19,8 @@ spec:
         targetrevision: HEAD
         path: ArgoCD/apps/nginx
       destination: 
-        server: '{{clusters.stage.address}}'
-        namespace: '{{clusters.stage.namespace}}'
+        server: '{{cluster.address}}'
+        namespace: '{{cluster.namespace}}'
       syncPolicy:
         syncOptions:
           - CreateNamespace=true

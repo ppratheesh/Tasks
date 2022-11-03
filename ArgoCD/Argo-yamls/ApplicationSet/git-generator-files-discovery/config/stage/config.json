@@ -1,8 +1,7 @@
 {
-    "clusters": {
-        "stage": {
+    "cluster": {
             "name": "stage-cluster",
             "namespace": "stage",
             "address": "https://172.18.0.2:31413"           
-        }
+    }
 }

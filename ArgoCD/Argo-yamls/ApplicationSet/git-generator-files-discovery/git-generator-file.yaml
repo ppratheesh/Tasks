@@ -1,0 +1,26 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: gitgen-guestbook
+spec:
+  generators:
+    - git:
+        repoURL: https://github.com/ppratheesh/Tasks.git
+        revision: HEAD
+        file:
+          - path: 
+  template:
+    metadata:
+      name: {{clusters.stage.name}}-guestbook
+    spec:
+      project: default
+      source:
+        repoURL: https://github.com/ppratheesh/Tasks.git
+        targetrevision: HEAD
+        path: ArgoCD/apps/nginx
+      destination: 
+        server: '{{clusters.stage.address}}'
+        namespace: '{{clusters.stage.namespace}}'
+      syncPolicy:
+        syncOptions:
+          - CreateNamespace=true
